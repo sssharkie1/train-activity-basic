@@ -1,0 +1,47 @@
+*{
+font-family: 'Mitr', sans-serif;
+}
+
+#myTableData{
+	margin-left: 10px;
+	outline-style: solid;
+	outline-color: grey;
+	width: 	1150px;
+	color: 	#B15307;
+	font-size: 	18px;
+
+}
+
+.title{
+	font-family: 'Mitr', sans-serif;
+	color: 	#B15307;
+	margin-left: 10px;
+	font-size: 	24px;
+}
+
+.addTrain {
+color: 	white;
+margin-left: 10px;
+font-size: 	16px;
+}
+
+.schedule {
+	color: 	white;
+	margin-left: 10px;
+
+
+}
+
+.container {
+	content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-image: url('trainBackground.jpg');
+}
+#inputBox{
+	margin-left:10px;
+}
