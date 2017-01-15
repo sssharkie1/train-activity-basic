@@ -1,39 +1,26 @@
-*{
-font-family: 'Mitr', sans-serif;
-}
 
-#myTableData{
+#title{
+	font-family: 'Russo One', sans-serif;
+	color: black;
 	margin-left: 10px;
-	outline-style: solid;
-	outline-color: grey;
-	width: 	1150px;
-	color: 	#B15307;
-	font-size: 	18px;
-
+	font-size: 26px;
 }
 
-.title{
-	font-family: 'Mitr', sans-serif;
-	color: 	#B15307;
-	margin-left: 10px;
-	font-size: 	24px;
+#timeNow{
+	font-size: 18px;
+	font-weight: bolder;
 }
 
+.addTitle{
+	font-size: 14px;
+	color: red;
+}
 .addTrain {
-color: 	white;
 margin-left: 10px;
-font-size: 	16px;
-}
-
-.schedule {
-	color: 	white;
-	margin-left: 10px;
-
-
+font-size: 	12px;
 }
 
 .container {
-	content: "";
     position: absolute;
     top: 0;
     bottom: 0;
@@ -41,7 +28,4 @@ font-size: 	16px;
     right: 0;
     z-index: 1;
     background-image: url('trainBackground.jpg');
-}
-#inputBox{
-	margin-left:10px;
 }

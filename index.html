@@ -1,108 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    </style>
-      <title class="title">Train Schedule</title>
-
-    <meta charset="utf-8">
-
-       	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-      	<link rel="stylesheet" type="text/css" href="style.css">
-      	<link rel="stylesheet" type="text/javascript" href="logic.js">
-      	<link href="https://fonts.googleapis.com/css?family=Mitr" rel="stylesheet">
+<html lang="EN">
+<head>
+	<meta charset="UTF-8">
+	<title>Train Time</title>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body onload="load()">
-<div class="container">
+<body>
 
+<div class="container">		
 		<div class="title">
-			<h1>Choo-Choo-Choose a Train</h1>
-
-			<h2 id = "timeNow">Current Time</h2>
+			<h1 class="text-center" id ="title">Choo Coo Choose a Train</h1>
+			<h2 class="text-center" id = "timeNow">Current Time</h2>
 		</div>
-
-
-	<div class="schedule"> 
-	<h2>Current Train Schedule</h2>
-		<table>
-		<tr>
-		<table id="myTableData">
-		<td><b>Train Name</b></td>
-        <td><b>Destination</b></td>
-        <td><b>Arrival Time</td>
-        <td><b>Frequency</td>
-		</tr>
-
-		</table>
-
-	</div>
-
-		<div class="addTrain">Add a Train
-			<table>
-		    <tr>
-		        <td>Train Name:</td>
-		        <td><input type="text" id="trainInput"></td>
-		    </tr>
-		    <tr>
-		        <td>Destination:</td>
-		        <td><input type="text" id="destination"></td>
-		    </tr>
-
-		    <tr>
-		        <td>Arrival Time:</td>
-		        <td><input type="text" id="arrivalTime"></td>
-		    </tr>
-
-		   	<tr>
-		        <td>Frequency:</td>
-		        <td><input type="text" id="frequencyInput"></td>
-		    </tr>
-
-
-		</table>
+		
+		<div class="schedule">
+		    <h3 id="tableTitle" >Current Train Schedule</h3>
 		</div>
+		 <div class="panel" id="tableTotal">
+		    <table class="table table-hover" id="table">
+		    	<thead>
+		    	  <tr>
+				    <th>Train Name</th>
+				    <th>Destination</th>
+				    <th>Frequency (min)</th>
+				    <th>Next Arrival</th>
+				    <th>Minutes Away</th>
+				  </tr>
+				 </thead>
 
-		<div id= inputBox>
-	    	<tr>
-        		<input type="button" id="addButton" value="Add" onclick="Javascript:addRow()"></td>
-    		</tr>
+				 <tbody></tbody>
+		    </table>
+		 </div>
+
+		<div class="addTrain">
+
+		     <h4>Add Train</h4>
+
+		    <form id="inputBox">
+
+			    <label for="name">Train Name</label>
+			    <br>
+			    <input id="name" type="text" >
+			    <br>
+
+			    <label for="destination">Destination</label>
+			    <br>
+			    <input  id="destination" type="text">
+			    <br>
+
+			    <label for="first">First Train Time(HH:mm - military time)</label>
+			    <br>
+			    <input id="first" type="text">
+			    <br>
+		
+			    <label for="frequency">Frequency (min)</label>
+			    <br>
+			    <input id="frequency" type="text">
+			    <br>
+
+			     <button id="submit" type="submit">Submit</button>
+
+			</form>
 		</div>
 </div>
 
-
-
-<!--		 
-		<input id = "trainName" type="text" name="train"> <br>
-		Destination: <br>
-		<input id = "destName" type = "text" name = "destination"> <br>
-		First Train Time(HH:MM-Military Time): <br>
-		<input id = "timeName" type="time" name="time"> <br>
-		Frequency (min): <br>
-		<input id = "frequencyName" type="number" name="frequency"> <br>
-		<br>
-		<input id = "submitName" type="submit" value = "Submit">
-
-			
-		</form>
--->
-
-
-</body>
-
 <script src="logic.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
-
-
+</body>
 </html>
-
-<!--Make sure that your app suits this basic spec:
-When adding trains, administrators should be able to submit the following:
-Train Name
-Destination
-First Train Time - in military time
-Frequency - in minutes
-Code this app to calculate when the next train will arrive; this should be relative to the current time.
-Users from many different machines must be able to view same train times.
-Styling and theme are completely up to you. Get Creative!

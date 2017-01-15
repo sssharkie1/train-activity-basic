@@ -1,44 +1,72 @@
-
-  // Initialize Firebase
-	  var config = {
+var config = {
 	    apiKey: "AIzaSyB_M8d2IfXxtygCUuqjXdc9w9PCrFWO7FU",
 	    authDomain: "train-activity-basic.firebaseapp.com",
 	    databaseURL: "https://train-activity-basic.firebaseio.com",
 	    storageBucket: "train-activity-basic.appspot.com",
 	    messagingSenderId: "849326539823"
-	  };
+  };
+  firebase.initializeApp(config);
 
-	  	firebase.initializeApp(config);
+var database = firebase.database();
 
-		var database = firebase.database();
+$("#submit").on("click", function() {
+	var Name = $('#name').val().trim();
+	var Destination = $('#destination').val().trim();
+	var First = moment($('#first').val().trim(), "HH:mm").format("X");
+	var Frequency = $('#frequency').val().trim();
+	if (Name != "" && Destination != "" && First != "" && Frequency != ""){
+		database.ref().push({
+			name: Name,
+			dest: Destination,
+			first: First,
+			freq: Frequency,
+		});
+		alert("Train successfully added!");
+	} else { 
+		alert("Please complete each missing field.");
+	};
+	$('#name').val("");
+	$('#destination').val("");
+	$('#first').val("");
+	$('#frequency').val("");
 
-			function addRow() {
-			          
-			    var trainName = document.getElementById("trainInput");
-			    var destName = document.getElementById("destination");
-			    var time = document.getElementById("arrivalTime")
-			    var table = document.getElementById("myTableData");
-			    var frequencyTime = document.getElementById	("frequencyInput");
-			 
-			    var rowCount = table.rows.length;
-			    var row = table.insertRow(rowCount);
-			 
+	return false;
+});
 
-			    row.insertCell(0).innerHTML= trainName.value;
-			    row.insertCell(1).innerHTML= destName.value;
-			    row.insertCell(2).innerHTML = arrivalTime.value;
-			    row.insertCell(3).innerHTML = frequencyTime.value;
+database.ref().on("child_added", function(snapshot) {
 
-			    $(function(){
-			      $("#trainInput").val("");
-			      $("#destination").val("");
-			      $('#arrivalTime').val("");
-			      $('#frequencyInput').val("");
-				})
-			}
- 
-			function load() {
-			}
+	var name = snapshot.val().name;
+	var destination = snapshot.val().dest;
+	var trainFirst = snapshot.val().first;
+	var trainFrequency = snapshot.val().freq;
+	var currentTime = moment();
+	var timeConverted = moment(currentTime).format("X");	
+	var firstTimeResult = moment(trainFirst,"X").subtract(1, "days");	
+	var diffTime = moment(timeConverted, "X").diff(moment(firstTimeResult, "X"), "minutes");	
+	var trainMath = diffTime % trainFrequency;	
+	var trainMin = trainFrequency - trainMath;
+		
+	var nextTrain = moment().add(trainMin, "minutes");	
+	if (timeConverted > trainFirst) {
+		$("#table > tbody").append("<tr><td>" + name + "</td><td>" 
+			+ destination + "</td><td>" 
+			+ trainFrequency + "</td><td>"
+			+ moment(nextTrain).format("hh:mm A") + "</td><td>"
+			+ trainMin + "</td></tr>");
+	} else {
+
+		$("#table > tbody").append("<tr><td>" + name + "</td><td>" 
+			+ destination + "</td><td>" 
+			+ trainFrequency + "</td><td>"
+			+ moment(trainFirst, "X").format("hh:mm A") + "</td><td>"
+			+ trainMin + "</td></tr>");
+	}
+}, function(errorObject){
+
+	console.log("Errors handled: " + errorObject.code)
+})
+
+
 
 
 //add snazzy current time
@@ -69,5 +97,3 @@ var clockTime = getClockTime();
 //document.write('Date is ' + calendarDate);
 
 $('#timeNow').html('Current Time is ' + clockTime);
-
- 
